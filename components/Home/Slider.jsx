@@ -33,6 +33,7 @@ export default function Slider() {
       </Text>
 
       <FlatList
+        showsHorizontalScrollIndicator={false}
         horizontal={true}
         data={SliderList}
         style={{ paddingLeft: 20 }}
@@ -41,7 +42,7 @@ export default function Slider() {
             source={{ uri: item.ImageUrl }}
             style={{
               width: 300,
-              height: 160,
+              height: 150,
               borderRadius: 15,
               marginRight: 20,
             }}
