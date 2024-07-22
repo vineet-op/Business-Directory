@@ -18,7 +18,7 @@ export default function PopularBusiness() {
     const querySnapShot = await getDocs(q);
 
     querySnapShot.forEach((doc) => {
-      setPopularBusiness((prev) => [...prev, doc.data()]);
+      setPopularBusiness((prev) => [...prev, { id: doc.id, ...doc.data() }]);
     });
   };
 

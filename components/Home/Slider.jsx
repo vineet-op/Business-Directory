@@ -39,6 +39,7 @@ export default function Slider() {
         style={{ paddingLeft: 20 }}
         renderItem={({ item, index }) => (
           <Image
+            key={index}
             source={{ uri: item.ImageUrl }}
             style={{
               width: 300,

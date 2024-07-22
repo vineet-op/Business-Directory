@@ -7,11 +7,12 @@ import { Colors } from "../../constants/Colors";
 import Intro from "../../components/BusinessDetail/Intro";
 import ActionBtn from "../../components/BusinessDetail/ActionBtn";
 import About from "../../components/BusinessDetail/About";
+import Reviews from "../../components/BusinessDetail/Reviews";
 
 export default function BusinessDetail() {
   const { businessid } = useLocalSearchParams();
 
-  const [BusinessDetail, setBusinessDetail] = useState();
+  const [BusinessDetail, setBusinessDetail] = useState([]);
   const [loading, setloading] = useState(false);
 
   useEffect(() => {
@@ -20,16 +21,13 @@ export default function BusinessDetail() {
 
   //Get Details By Id
   const getBusinessDetailById = async () => {
+    // setBusinessDetail([]);
     setloading(true);
     const docRef = doc(db, "BusinessList", businessid);
     const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      // console.log(docSnap);
-      setBusinessDetail(() => docSnap.data());
-      setloading(false);
-    } else {
-      console.log("Not Found");
-    }
+    setBusinessDetail({ id: docSnap.id, ...docSnap.data() });
+    console.log("This is Business ", BusinessDetail);
+    setloading(false);
   };
 
   return (
@@ -48,6 +46,8 @@ export default function BusinessDetail() {
           <ActionBtn business={BusinessDetail} />
           {/* About US */}
           <About business={BusinessDetail} />
+          {/* Ratings */}
+          <Reviews business={BusinessDetail} />
         </View>
       )}
     </ScrollView>

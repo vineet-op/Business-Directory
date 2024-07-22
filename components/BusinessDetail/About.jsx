@@ -5,6 +5,8 @@ export default function About({ business }) {
   return (
     <View
       style={{
+        display: "flex",
+        flex: 1,
         padding: 20,
         backgroundColor: "white",
         gap: 10,
@@ -17,7 +19,7 @@ export default function About({ business }) {
           fontWeight: "bold",
         }}
       >
-        About
+        Abouts
       </Text>
       <Text>{business?.about}</Text>
     </View>
