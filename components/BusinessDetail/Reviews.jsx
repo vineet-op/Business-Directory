@@ -103,11 +103,11 @@ export default function Reviews({ business }) {
             style={{
               display: "flex",
               flexDirection: "row",
-              gap: 10,
+              gap: 20,
               alignItems: "center",
               padding: 10,
               borderWidth: 1,
-              backgroundColor: "gray",
+              backgroundColor: "white",
               borderRadius: 15,
               marginTop: 20,
             }}

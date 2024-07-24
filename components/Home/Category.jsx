@@ -6,7 +6,7 @@ import { db } from "../../Config/FirebaseConfig";
 import CategoryItem from "./CategoryItem";
 import { useRouter } from "expo-router";
 
-export default function Category() {
+export default function Category({ explore = false, onCategoryselect }) {
   const [CategoryList, setCategoryList] = useState([]);
   const router = useRouter();
 
@@ -24,20 +24,30 @@ export default function Category() {
     });
   };
 
+  const onCategoryPressHandler = (item) => {
+    if (!explore) {
+      router.push("/BusinessList/" + item.name);
+    } else {
+      onCategoryselect(item.name);
+    }
+  };
+
   return (
     <View>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          padding: 20,
-          marginTop: 10,
-        }}
-      >
-        <Text style={{ fontSize: 20 }}>Category</Text>
-        <Text style={{ fontSize: 20, color: Colors.PRIMARY }}>View All</Text>
-      </View>
+      {!explore && (
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            padding: 20,
+            marginTop: 10,
+          }}
+        >
+          <Text style={{ fontSize: 20 }}>Category</Text>
+          <Text style={{ fontSize: 20, color: Colors.PRIMARY }}>View All</Text>
+        </View>
+      )}
 
       <FlatList
         showsHorizontalScrollIndicator={false}
@@ -49,7 +59,8 @@ export default function Category() {
             key={index}
             category={item}
             onCategoryPress={(category) =>
-              router.push("/BusinessList/" + item.name)
+              // router.push("/BusinessList/" + item.name)
+              onCategoryPressHandler(item)
             }
           />
         )}
