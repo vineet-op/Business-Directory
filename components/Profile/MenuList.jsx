@@ -33,11 +33,15 @@ export default function MenuList() {
   const router = useRouter();
 
   const onMenuClick = (item) => {
-    router.navigate(item.path);
+    router.navigate(item?.path);
   };
 
   return (
-    <View>
+    <View
+      style={{
+        marginTop: 50,
+      }}
+    >
       <FlatList
         data={menuList}
         numColumns={2}
@@ -45,6 +49,7 @@ export default function MenuList() {
           <TouchableOpacity
             key={index}
             onPress={() => onMenuClick(item)}
+            // onPress={() => router.push(item?.path)}
             style={{
               display: "flex",
               flexDirection: "row",

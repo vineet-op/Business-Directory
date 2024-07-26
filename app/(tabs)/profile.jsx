@@ -8,11 +8,13 @@ export default function profile() {
     <View
       style={{
         padding: 20,
+        paddingTop: 50,
       }}
     >
       <Text
         style={{
-          fontSize: 15,
+          fontSize: 25,
+          fontWeight: "bold",
         }}
       >
         profile

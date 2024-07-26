@@ -3,9 +3,20 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 import { Colors } from "../../constants/Colors";
+import { db } from "../../Config/FirebaseConfig";
+import { collection, getDocs, query } from "firebase/firestore";
+import RNPickerSelect from "react-native-picker-select";
 
 export default function AddBusiness() {
-  const [image, setimage] = useState([]);
+  const [image, setImage] = useState(null);
+  const [CategoryList, setCategoryList] = useState([]);
+
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [about, setAbout] = useState("");
+  const [contact, setContact] = useState("");
+  const [website, setWebsite] = useState("");
+  const [category, setCategory] = useState("");
 
   const navigation = useNavigation();
 
@@ -14,6 +25,8 @@ export default function AddBusiness() {
       headerTitle: "Add New Business",
       headerShown: true,
     });
+
+    GetCategoryList();
   }, []);
 
   const onImagePick = async () => {
@@ -23,7 +36,24 @@ export default function AddBusiness() {
       quality: 1,
     });
     console.log(result);
-    setimage(result?.assets?.uri[0]);
+    if (!result.canceled) {
+      setImage(result.uri);
+    }
+  };
+
+  const GetCategoryList = async () => {
+    setCategoryList([]);
+    const q = query(collection(db, "Category"));
+    const snapShot = await getDocs(q);
+    snapShot.forEach((doc) => {
+      setCategoryList((prev) => [
+        ...prev,
+        {
+          label: doc.data().name,
+          value: doc.data().name,
+        },
+      ]);
+    });
   };
 
   return (
@@ -49,11 +79,11 @@ export default function AddBusiness() {
       >
         {!image ? (
           <Image
+            source={require("../../assets/images/camera.png")}
             style={{
               width: 100,
               height: 100,
             }}
-            source={require("../../assets/images/camera.png")}
           />
         ) : (
           <Image
@@ -69,6 +99,8 @@ export default function AddBusiness() {
 
       <View>
         <TextInput
+          value={name}
+          onChangeText={(val) => setName(val)}
           placeholder="Name"
           style={{
             padding: 10,
@@ -78,11 +110,12 @@ export default function AddBusiness() {
             backgroundColor: "white",
             marginTop: 10,
             borderColor: Colors.PRIMARY,
-            // height: 100,
           }}
         />
 
         <TextInput
+          value={address}
+          onChangeText={(val) => setAddress(val)}
           placeholder="Address"
           style={{
             padding: 10,
@@ -92,11 +125,12 @@ export default function AddBusiness() {
             backgroundColor: "white",
             marginTop: 10,
             borderColor: Colors.PRIMARY,
-            // height: 100,
           }}
         />
 
         <TextInput
+          value={contact}
+          onChangeText={(val) => setContact(val)}
           placeholder="Contact"
           style={{
             padding: 10,
@@ -106,12 +140,13 @@ export default function AddBusiness() {
             backgroundColor: "white",
             marginTop: 10,
             borderColor: Colors.PRIMARY,
-            // height: 100,
           }}
         />
 
         <TextInput
-          placeholder="Email"
+          value={website}
+          onChangeText={(val) => setWebsite(val)}
+          placeholder="Website"
           style={{
             padding: 10,
             borderWidth: 1,
@@ -120,14 +155,15 @@ export default function AddBusiness() {
             backgroundColor: "white",
             marginTop: 10,
             borderColor: Colors.PRIMARY,
-            // height: 100,
           }}
         />
 
         <TextInput
+          value={about}
+          onChangeText={(val) => setAbout(val)}
+          placeholder="About"
           multiline
           numberOfLines={3}
-          placeholder="About"
           style={{
             padding: 10,
             borderWidth: 1,
@@ -139,7 +175,41 @@ export default function AddBusiness() {
             height: 100,
           }}
         />
+
+        <View
+          style={{
+            borderWidth: 1,
+            borderRadius: 20,
+            fontSize: 17,
+            backgroundColor: "white",
+            marginTop: 10,
+            borderColor: Colors.PRIMARY,
+          }}
+        >
+          <RNPickerSelect
+            onValueChange={(value) => setCategory(value)}
+            items={CategoryList}
+          />
+        </View>
       </View>
+
+      <TouchableOpacity
+        style={{
+          padding: 20,
+          backgroundColor: Colors.PRIMARY,
+          borderRadius: 10,
+          marginTop: 20,
+        }}
+      >
+        <Text
+          style={{
+            textAlign: "center",
+            color: "white",
+          }}
+        >
+          Add New Business
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }

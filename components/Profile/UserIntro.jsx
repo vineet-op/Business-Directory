@@ -1,6 +1,6 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
-import useUser from "@clerk/clerk-expo";
+import { useUser } from "@clerk/clerk-expo";
 
 export default function UserIntro() {
   const { user } = useUser();
@@ -10,7 +10,7 @@ export default function UserIntro() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 30,
+        marginTop: 70,
       }}
     >
       <Image
