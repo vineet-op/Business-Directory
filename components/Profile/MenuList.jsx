@@ -61,6 +61,7 @@ export default function MenuList() {
               borderWidth: 2,
               margin: 10,
               borderColor: "white",
+              justifyContent: "center",
             }}
           >
             <Image
@@ -72,8 +73,10 @@ export default function MenuList() {
             />
             <Text
               style={{
-                fontSize: 20,
+                fontSize: 15,
+                display: "flex",
                 flex: 1,
+                textAlign: "center",
               }}
             >
               {item.name}

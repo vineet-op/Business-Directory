@@ -1,11 +1,22 @@
-import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  ToastAndroid,
+  ActivityIndicator,
+  ScrollView,
+} from "react-native";
 import React, { useEffect, useState } from "react";
-import { useNavigation } from "expo-router";
+import { router, useNavigation } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 import { Colors } from "../../constants/Colors";
-import { db } from "../../Config/FirebaseConfig";
-import { collection, getDocs, query } from "firebase/firestore";
+import { db, storage } from "../../Config/FirebaseConfig";
+import { collection, doc, getDocs, query, setDoc } from "firebase/firestore";
 import RNPickerSelect from "react-native-picker-select";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useUser } from "@clerk/clerk-expo";
 
 export default function AddBusiness() {
   const [image, setImage] = useState(null);
@@ -17,8 +28,11 @@ export default function AddBusiness() {
   const [contact, setContact] = useState("");
   const [website, setWebsite] = useState("");
   const [category, setCategory] = useState("");
+  const [loading, setloading] = useState(false);
 
   const navigation = useNavigation();
+  const { user } = useUser();
+  // const router = router();
 
   useEffect(() => {
     navigation.setOptions({
@@ -35,10 +49,8 @@ export default function AddBusiness() {
       allowsEditing: true,
       quality: 1,
     });
+    setImage(result?.assets[0].uri); //Bug was here
     console.log(result);
-    if (!result.canceled) {
-      setImage(result.uri);
-    }
   };
 
   const GetCategoryList = async () => {
@@ -56,15 +68,57 @@ export default function AddBusiness() {
     });
   };
 
+  const AddNewBusiness = async () => {
+    setloading(true);
+    const fileName = Date.now().toString() + ".jpeg";
+    const response = await fetch(image);
+    const blob = await response.blob();
+
+    const Imageref = ref(storage, "Business-App/" + fileName);
+    uploadBytes(Imageref, blob)
+      .then((snapshot) => {
+        console.log("File Uploaded...");
+      })
+      .then((response) => {
+        getDownloadURL(Imageref).then(async (downloadUrL) => {
+          console.log(downloadUrL);
+          SaveBusinessDetail(downloadUrL);
+        });
+      });
+
+    setloading(false);
+  };
+
+  const SaveBusinessDetail = async (imageUrl) => {
+    await setDoc(doc(db, "BusinessDetail", Date.now().toString()), {
+      name: name,
+      address: address,
+      about: about,
+      contact: contact,
+      website: website,
+      category: category,
+      userName: user?.fullName,
+      profile: user?.imageUrl,
+      imageUrl: imageUrl,
+    });
+    // setName("");
+
+    setloading(false);
+    ToastAndroid.show(
+      "New Business Added Succesfully ...",
+      ToastAndroid.BOTTOM
+    );
+  };
+
   return (
-    <View
+    <ScrollView
       style={{
         padding: 20,
       }}
     >
       <Text
         style={{
-          fontSize: 25,
+          fontSize: 10,
         }}
       >
         Add New Business
@@ -194,6 +248,8 @@ export default function AddBusiness() {
       </View>
 
       <TouchableOpacity
+        disabled={loading}
+        onPress={() => AddNewBusiness()}
         style={{
           padding: 20,
           backgroundColor: Colors.PRIMARY,
@@ -201,15 +257,19 @@ export default function AddBusiness() {
           marginTop: 20,
         }}
       >
-        <Text
-          style={{
-            textAlign: "center",
-            color: "white",
-          }}
-        >
-          Add New Business
-        </Text>
+        {loading ? (
+          <ActivityIndicator size={"large"} color={"purple"} />
+        ) : (
+          <Text
+            style={{
+              textAlign: "center",
+              color: "white",
+            }}
+          >
+            Add New Business
+          </Text>
+        )}
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 }
