@@ -16,21 +16,24 @@ export default function ExploreCard({ Business }) {
     <TouchableOpacity
       onPress={() => router.push("/businessdetail/" + Business?.id)}
       style={{
-        backgroundColor: "white",
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
+        // backgroundColor: "white",
+        // borderTopLeftRadius: 15,
+        // borderTopRightRadius: 15,
+        // borderBottomEndRadius: 15,
+        // borderBottomLeftRadius: 15,
+        borderRadius: 20,
         marginTop: 15,
         borderColor: Colors.PRIMARY,
-        borderWidth: 1,
+        borderWidth: 2,
       }}
     >
       <Image
         source={{ uri: Business?.imageUrl }}
         style={{
           width: "100%",
-          height: 200,
-          borderTopLeftRadius: 15,
-          borderTopRightRadius: 15,
+          height: 300,
+          borderTopLeftRadius: 10,
+          borderTopRightRadius: 10,
         }}
       />
 

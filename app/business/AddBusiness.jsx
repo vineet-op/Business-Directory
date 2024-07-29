@@ -32,7 +32,6 @@ export default function AddBusiness() {
 
   const navigation = useNavigation();
   const { user } = useUser();
-  // const router = router();
 
   useEffect(() => {
     navigation.setOptions({
