@@ -12,15 +12,11 @@ import { useRouter } from "expo-router";
 
 export default function ExploreCard({ Business }) {
   const router = useRouter();
+
   return (
     <TouchableOpacity
       onPress={() => router.push("/businessdetail/" + Business?.id)}
       style={{
-        // backgroundColor: "white",
-        // borderTopLeftRadius: 15,
-        // borderTopRightRadius: 15,
-        // borderBottomEndRadius: 15,
-        // borderBottomLeftRadius: 15,
         borderRadius: 20,
         marginTop: 15,
         borderColor: Colors.PRIMARY,

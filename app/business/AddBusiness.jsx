@@ -89,7 +89,7 @@ export default function AddBusiness() {
   };
 
   const SaveBusinessDetail = async (imageUrl) => {
-    await setDoc(doc(db, "BusinessDetail", Date.now().toString()), {
+    await setDoc(doc(db, "BusinessList", Date.now().toString()), {
       name: name,
       address: address,
       about: about,

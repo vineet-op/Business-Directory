@@ -15,7 +15,7 @@ import { db } from "../../Config/FirebaseConfig";
 import { useUser } from "@clerk/clerk-expo";
 
 export default function Reviews({ business }) {
-  const [rating, setrating] = useState(4);
+  const [rating, setrating] = useState(1);
   const [userInput, setUserinput] = useState();
 
   const { user } = useUser();
@@ -54,7 +54,7 @@ export default function Reviews({ business }) {
 
       <View>
         <Rating
-          showRating={false}
+          showRating={true}
           imageSize={20}
           onFinishRating={(rating) => setrating(rating)}
           style={{ paddingVertical: 10 }}
@@ -128,7 +128,7 @@ export default function Reviews({ business }) {
               <Text>{item.userName}</Text>
               <Rating
                 imageSize={20}
-                ratingCount={item.rating}
+                startingValue={item.rating}
                 style={{
                   alignItems: "flex-start",
                 }}

@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useUser } from "@clerk/clerk-expo";
 import { collection, getDocs, query, where } from "firebase/firestore";
@@ -29,42 +29,50 @@ export default function MyBusiness() {
 
   const GetUserBusiness = async () => {
     setLoading(true);
-    setMyBusinessList([]);
     const q = query(
       collection(db, "BusinessList"),
       where("userName", "==", user?.fullName)
     );
     const SnapShot = await getDocs(q);
 
-    SnapShot.forEach((doc) => {
-      setMyBusinessList((prev) => [...prev, { id: doc.id, ...doc.data() }]);
-    });
+    const businesses = SnapShot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    setMyBusinessList(businesses);
     setLoading(false);
   };
 
   return (
-    <View
-      style={{
-        padding: 20,
-        marginTop: 25,
-      }}
-    >
-      <Text
-        style={{
-          fontSize: 30,
-        }}
-      >
-        My Business
-      </Text>
-
-      <FlatList
-        data={MyBusinessList}
-        onRefresh={GetUserBusiness}
-        refreshing={Loading}
-        renderItem={({ item, index }) => (
-          <ExploreCard Business={item} key={index} />
-        )}
-      />
+    <View style={styles.container}>
+      {MyBusinessList.length === 0 ? (
+        <View style={styles.noBusinessContainer}>
+          <Text style={styles.noBusinessText}>No Business Found</Text>
+        </View>
+      ) : (
+        <FlatList
+          data={MyBusinessList}
+          keyExtractor={(item) => item.id}
+          onRefresh={GetUserBusiness}
+          refreshing={Loading}
+          renderItem={({ item }) => <ExploreCard Business={item} />}
+        />
+      )}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+    marginTop: 25,
+  },
+  noBusinessContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  noBusinessText: {
+    fontSize: 20,
+  },
+});

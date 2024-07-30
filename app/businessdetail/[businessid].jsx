@@ -21,7 +21,7 @@ export default function BusinessDetail() {
 
   //Get Details By Id
   const getBusinessDetailById = async () => {
-    // setBusinessDetail([]);
+    setBusinessDetail([]);
     setloading(true);
     const docRef = doc(db, "BusinessList", businessid);
     const docSnap = await getDoc(docRef);
