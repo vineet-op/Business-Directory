@@ -12,14 +12,22 @@ This application is a business directory built with React Native and Expo. It us
 
 ## Screenshots
 
+### Login Screen
+<img src="https://github.com/vineet-op/Business-Directory/blob/763d9c57aec3f308a875d21319733c7b577936c9/assets/samples/Login.jpg" alt="Image Description" width="200"/>
+
 ### Home Tab
-![Home Tab](path/to/home-tab-image.png)
+<img src="https://github.com/vineet-op/Business-Directory/blob/763d9c57aec3f308a875d21319733c7b577936c9/assets/samples/Home.jpg" alt="Image Description" width="200"/>
 
 ### Profile Tab
-![Profile Tab](path/to/profile-tab-image.png)
+<img src="https://github.com/vineet-op/Business-Directory/blob/763d9c57aec3f308a875d21319733c7b577936c9/assets/samples/Profile.jpg" alt="Image Description" width="200"/>
 
 ### Explore Tab
-![Explore Tab](path/to/explore-tab-image.png)
+<img src="https://github.com/vineet-op/Business-Directory/blob/763d9c57aec3f308a875d21319733c7b577936c9/assets/samples/Detail.jpg" alt="Image Description" width="200"/>
+
+### Add Business
+<img src="https://github.com/vineet-op/Business-Directory/blob/763d9c57aec3f308a875d21319733c7b577936c9/assets/samples/AddBusiness.jpg" alt="Image Description" width="200"/>
+
+
 
 ## Technologies Used
 
