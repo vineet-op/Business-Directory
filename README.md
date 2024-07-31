@@ -1,50 +1,66 @@
-# Welcome to your Expo app 👋
+# Business Directory Application
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
 
-## Get started
+This application is a business directory built with React Native and Expo. It uses Clerk for authentication and Firebase for backend storage. Users can browse various business categories, view detailed business information, add new businesses, and rate/review existing ones. The application features three main tabs: Home, Profile, and Explore.
 
-1. Install dependencies
+## Features
 
-   ```bash
-   npm install
-   ```
+- **Home Tab**: Displays a list of business categories.
+- **Profile Tab**: Allows users to sign in and sign out, and view their profile details.
+- **Explore Tab**: Users can explore detailed information about businesses, including ratings and reviews, and add new businesses to the directory.
 
-2. Start the app
+## Screenshots
 
-   ```bash
-    npx expo start
-   ```
+### Home Tab
+![Home Tab](path/to/home-tab-image.png)
 
-In the output, you'll find options to open the app in a
+### Profile Tab
+![Profile Tab](path/to/profile-tab-image.png)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Explore Tab
+![Explore Tab](path/to/explore-tab-image.png)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Technologies Used
 
-## Get a fresh project
+- **React Native**: For building the mobile application.
+- **Expo**: For building, deploying, and testing the application.
+- **Clerk**: For authentication (user sign in and sign out).
+- **Firebase**: For backend storage and managing business data.
 
-When you're ready, run:
+## Installation
 
-```bash
-npm run reset-project
-```
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/vineet-op/Business-Directory.git
+    ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Navigate to the project directory:
+    ```sh
+    cd Business-directory-app
+    ```
 
-## Learn more
+3. Install dependencies:
+    ```sh
+    npm install
+    ```
 
-To learn more about developing your project with Expo, look at the following resources:
+4. Set up Firebase:
+    - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/).
+    - Add your Firebase configuration to the project.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+5. Set up Clerk:
+    - Create a Clerk application at [Clerk Console](https://clerk.dev/).
+    - Add your Clerk configuration to the project.
 
-## Join the community
+## Usage
 
-Join our community of developers creating universal apps.
+1. Start the Expo server:
+    ```sh
+    npm start
+    ```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+2. Use an emulator or scan the QR code with your mobile device to run the application.
+
+
+
